@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Predictor</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <style>
         body {
             font-family: 'Montserrat';
@@ -63,6 +65,12 @@
         #result {
             font-size: 18px;
             margin-top: 20px;
+        }
+        .mi-boton {
+            background-color: #00BAB3; /* Color de fondo */
+            border-color: #00BAB3; /* Color del borde */
+            color: #fff; /* Color del texto */
+            font-weight: bold; /* Opcional: Cambia el peso de la fuente si lo deseas */
         }
     </style>
 </head>
@@ -441,7 +449,18 @@
             });
 
             const result = await response.json();
-            document.getElementById('result').innerText = 'Predicción: ' + result.prediction;
+            // Muestra la predicción en una ventana emergente personalizada
+            Swal.fire({
+                    title: 'Predicción',
+                    text: result.prediction === 0 ? 'El paciente queda hospitalizado' : 'El paciente no queda hospitalizado',
+                    icon: 'info',
+                    confirmButtonColor: '#00BAB3', // Cambia el color del botón de confirmación
+                    confirmButtonText: 'Aceptar',
+                    customClass: {
+                        confirmButton: 'mi-boton' // Nombre de la clase personalizada para el botón de confirmación
+                    }
+                    
+                });
         
         }
     </script>
