@@ -6,14 +6,23 @@
     <title>Predictor</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        body {
+            font-family: 'Montserrat', sans-serif; /* Usar la fuente Montserrat */
+            color: #2c3e50; /* Color de texto */
+            background-color: #fcfcfc; /* Color de fondo */
+        }
         .container {
             margin-top: 50px;
         }
+        .navbar {
+            background-color: #fcfcfc; /* Color de fondo del navbar */
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1); /* Sombreado del navbar */
+        }
         .form-container {
-            max-width: 1200px; /* Modifica el ancho máximo según tu preferencia */
-            margin: auto;
+            width: 75vw; /* Modifica el ancho máximo según tu preferencia */
+            margin: auto;     
             padding: 20px;
-            background: #f9f9f9;
+            background: #fcfcfc; /* Color de fondo del contenedor del formulario */
             border-radius: 10px;
             box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
         }
@@ -29,6 +38,12 @@
             font-size: 1rem;
             border-radius: 5px;
             border: 1px solid #ced4da; /* Bordes más suaves */
+            font-family: 'Montserrat', sans-serif; /* Usar la fuente Montserrat */
+            color: #2c3e50; /* Color de texto */
+        }
+        .btn-primary {
+            background-color: #00BAB3; /* Color del botón */
+            border-color: #00BAB3; /* Color del borde del botón */
         }
         .btn-block {
             width: 100%;
@@ -36,8 +51,15 @@
     </style>
 </head>
 <body>
+    <nav class="navbar navbar-light">
+        <a class="navbar-brand" href="#">
+            <img src="static\logo.png" width="20%" height="20%" class="d-inline-block align-top" alt="">
+        </a>
+    </nav>
+
     <div class="container">
         <div class="form-container">
+            <h1 class="text-center mb-4">Predicción de hospitalización</h1>
             <form>
                 <div class="row">
                 <div class="col-md-4">
@@ -237,10 +259,10 @@
                 </div>
             </div>
                 <div class="form-group">
-                    <button type="button" class="btn btn-primary btn-block" onclick="sendPrediction()">Enviar</button>
+                    <button type="button" class="btn btn-primary btn-block" style="width: 200px; margin-left: 18px;" onclick="sendPrediction()">Enviar</button>
                 </div>
             </form>
-            <p id="result" class="mt-3 text-center"></p>
+            <p id="result" class="mt-3 text-center" style="width: 200px; margin-left: 18px;"></p>
         </div>
     </div>
 
@@ -277,7 +299,7 @@
             });
 
             const result = await response.json();
-            document.getElementById('result').innerText = 'Prediction: ' + result.prediction;
+            document.getElementById('result').innerText = 'Predicción: ' + result.prediction;
         
         }
     </script>

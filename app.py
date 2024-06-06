@@ -181,7 +181,7 @@ def predict():
     # Extender el vector con ceros para que tenga una longitud de 2429
     reshaped_input = np.pad(reshaped_input, (0, 2429 - len(reshaped_input)), 'constant')
     # Establecer el valor en posicion 1000 como 1
-    reshaped_input[720] = 2
+    reshaped_input[1100] = 2
     print(reshaped_input.shape)  
 
 
