@@ -7,7 +7,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            font-family: 'Montserrat', sans-serif; /* Usar la fuente Montserrat */
+            font-family: 'Montserrat'; /* Usar la fuente Montserrat */
             color: #2c3e50; /* Color de texto */
             background-color: #fcfcfc; /* Color de fondo */
         }
@@ -30,6 +30,8 @@
             margin-bottom: 20px;
         }
         .form-label {
+            font-family: 'Montserrat'; /* Usar la fuente Montserrat */
+            color: #626262; /* Color de texto */
             font-weight: bold;
         }
         .form-select {
@@ -38,8 +40,8 @@
             font-size: 1rem;
             border-radius: 5px;
             border: 1px solid #ced4da; /* Bordes más suaves */
-            font-family: 'Montserrat', sans-serif; /* Usar la fuente Montserrat */
-            color: #2c3e50; /* Color de texto */
+            font-family: 'Montserrat'; /* Usar la fuente Montserrat */
+            color: #626262; /* Color de texto */
         }
         .btn-primary {
             background-color: #00BAB3; /* Color del botón */
@@ -62,13 +64,17 @@
             <h1 class="text-center mb-4">Predicción de hospitalización</h1>
             <form>
                 <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label for="inputDescripcion" class="form-label">Descripción</label>
                         <select id="inputDescripcion" class="form-select">
                             <option>Urgencias pediátricas</option>
                             <option>Urgencias adulto</option>
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEdad" class="form-label">Edad</label>
+                        <input type="number" id="inputEdad" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="inputMes" class="form-label">Mes</label>
@@ -88,7 +94,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="inputERP" class="form-label">ERP o EPS</label>
+                        <label for="inputERP" class="form-label">EPS/ERP</label>
                         <select id="inputERP" class="form-select">
                             <option value="48">48</option>
                             <option value="65">65</option>
@@ -132,6 +138,9 @@
                             <option>No asegurado</option>
                         </select>
                     </div>
+
+                </div>
+                <div class="col-md-3">
                     <div class="form-group">
                         <label for="inputGrupoPoblacional" class="form-label">Grupo poblacional</label>
                         <select id="inputGrupoPoblacional" class="form-select">
@@ -150,8 +159,44 @@
                             <option>Raizal (Archipiélago de San Andrés y Providencia)</option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="inputSexo" class="form-label">Sexo</label>
+                        <select id="inputSexo" class="form-select">
+                            <option>Femenino</option>
+                            <option>Masculino</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputModalidadAtencion" class="form-label">Modalidad atención</label>
+                        <select id="inputModalidadAtencion" class="form-select">
+                            <option>Urgencias</option>
+                            <option>Remitido</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputCausa" class="form-label">Causa externa</label>
+                        <select id="inputCausa" class="form-select">
+                            <option>Enfermedad general</option>
+                            <option>Accidente de tránsito</option>
+                            <option>Accidente de trabajo</option>
+                            <option>Otro tipo de accidente</option>
+                            <option>Lesión por agresión</option>
+                            <option>Enfermedad profesional</option>
+                            <option>Sospecha abuso sexual</option>
+                            <option>Accidente rábico</option>
+                            <option>Otra</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputUrgenciaXpressF3" class="form-label">Urgencia Xpress F3</label>
+                        <select id="inputUrgenciaXpressF3" class="form-select">
+                            <option>Si</option>
+                            <option>No</option>
+                        </select>
+                    </div>
+
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label for="inputAltoCosto" class="form-label">Alto costo</label>
                         <select id="inputAltoCosto" class="form-select">
@@ -168,120 +213,38 @@
                             <option>Hepatitis C</option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="inputDiagnosticoPrincipal" class="form-label">Diagnóstico principal</label>
+                        <select id="inputDiagnosticoPrincipal" class="form-select">
+                            <option>Enfermedades del sistema circulatorio</option>
+                            <option>Causas externas de morbilidad y mortalidad</option>
+                            <option>Enfermedades del sistema nervioso</option>
+                            <option>Síntomas, signos y hallazgos anormales clínicos y de laboratorio, no clasificados en otra parte</option>
+                            <option>Enfermedades del sistema digestivo</option>
+                            <option>Lesiones, envenenamiento y algunas otras consecuencias de causas externas</option>
+                            <option>Enfermedades del sistema respiratorio</option>
+                            <option>Factores que influyen en el estado de salud y contacto con los servicios de salud</option>
+                            <option>Enfermedades del sistema genitourinario</option>
+                            <option>Enfermedades del oído y de la apófisis mastoides</option>
+                            <option>Ciertas enfermedades infecciosas y parasitarias</option>
+                            <option>Neoplasias</option>
+                            <option>Enfermedades endocrinas, nutricionales y metabólicas</option>
+                            <option>Enfermedades de la piel y del tejido subcutáneo</option>
+                            <option>Enfermedades del sistema osteomuscular y del tejido conjuntivo</option>
+                            <option>Trastornos mentales y del comportamiento</option>
+                            <option>Enfermedades del ojo y anexos</option>
+                            <option>Enfermedades de la sangre y de los órganos hematopoyéticos</option>
+                            <option>Malformaciones congénitas, deformidades y anomalías cromosómicas</option>
+                            <option>Condiciones originadas en el período perinatal</option>
+                            <option>Códigos para usos especiales</option>
+                            <option>Embarazo, parto y puerperio</option>
+                        </select>
+                    </div>
                 <div class="form-group">
                     <label for="inputDiagnostico" class="form-label">Tipo diagnóstico principal</label>
                     <select id="inputDiagnostico" class="form-select">
                         <option>Nuevo</option>
                         <option>Repetido</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="inputSexo" class="form-label">Sexo</label>
-                    <select id="inputSexo" class="form-select">
-                        <option>Femenino</option>
-                        <option>Masculino</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="inputTriaje" class="form-label">Triaje</label>
-                    <select id="inputTriaje" class="form-select">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>NA</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="inputUbicacionTriaje" class="form-label">Ubicación triaje</label>
-                    <select id="inputUbicacionTriaje" class="form-select">
-                        <option>Consultorio 1</option>
-                        <option>Consultorio 2</option>
-                        <option>Consultorio 3</option>
-                        <option>Consultorio 4</option>
-                        <option>Consultorio Pediatria</option>
-                        <option>Trauma</option>
-                        <option>Urgencia XPRESS</option>
-                        <option>Udea</option>
-                        <option>Consultorio Oncologia</option>
-                        <option>SAI Adulto</option>
-                        <option>Consultorio 1 Magisterio</option>
-                        <option>Tamizaje Covid</option>                        
-                        <option>Xpress</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="inputCausa" class="form-label">Causa externa</label>
-                    <select id="inputCausa" class="form-select">
-                        <option>Enfermedad general</option>
-                        <option>Accidente de tránsito</option>
-                        <option>Accidente de trabajo</option>
-                        <option>Otro tipo de accidente</option>
-                        <option>Lesión por agresión</option>
-                        <option>Enfermedad profesional</option>
-                        <option>Sospecha abuso sexual</option>
-                        <option>Accidente rábico</option>
-                        <option>Otra</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="inputModalidadAtencion" class="form-label">Modalidad atención</label>
-                    <select id="inputModalidadAtencion" class="form-select">
-                        <option>Urgencias</option>
-                        <option>Remitido</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="inputUrgenciaXpressF3" class="form-label">Urgencia Xpress F3</label>
-                    <select id="inputUrgenciaXpressF3" class="form-select">
-                        <option>Si</option>
-                        <option>No</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="inputMinutosCamaraF3" class="form-label">Minutos (Cámara - F3)</label>
-                    <input type="number" id="inputMinutosCamaraF3" class="form-control" step="0.01">
-                </div>
-                <div class="form-group">
-                    <label for="inputEdad" class="form-label">Edad</label>
-                    <input type="number" id="inputEdad" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="inputHoraDiligenciamientoF3" class="form-label">Hora diligenciamiento F3</label>
-                    <input type="number" id="inputHoraDiligenciamientoF3" class="form-control" step="0.01">
-                </div>
-                <div class="form-group">
-                    <label for="inputMinutos" class="form-label">Minutos</label>
-                    <input type="number" id="inputMinutos" class="form-control" step="0.01">
-                </div>
-                <div class="form-group">
-                    <label for="inputDiagnosticoPrincipal" class="form-label">Diagnóstico principal</label>
-                    <select id="inputDiagnosticoPrincipal" class="form-select">
-                        <option>Enfermedades del sistema circulatorio</option>
-                        <option>Causas externas de morbilidad y mortalidad</option>
-                        <option>Enfermedades del sistema nervioso</option>
-                        <option>Síntomas, signos y hallazgos anormales clínicos y de laboratorio, no clasificados en otra parte</option>
-                        <option>Enfermedades del sistema digestivo</option>
-                        <option>Lesiones, envenenamiento y algunas otras consecuencias de causas externas</option>
-                        <option>Enfermedades del sistema respiratorio</option>
-                        <option>Factores que influyen en el estado de salud y contacto con los servicios de salud</option>
-                        <option>Enfermedades del sistema genitourinario</option>
-                        <option>Enfermedades del oído y de la apófisis mastoides</option>
-                        <option>Ciertas enfermedades infecciosas y parasitarias</option>
-                        <option>Neoplasias</option>
-                        <option>Enfermedades endocrinas, nutricionales y metabólicas</option>
-                        <option>Enfermedades de la piel y del tejido subcutáneo</option>
-                        <option>Enfermedades del sistema osteomuscular y del tejido conjuntivo</option>
-                        <option>Trastornos mentales y del comportamiento</option>
-                        <option>Enfermedades del ojo y anexos</option>
-                        <option>Enfermedades de la sangre y de los órganos hematopoyéticos</option>
-                        <option>Malformaciones congénitas, deformidades y anomalías cromosómicas</option>
-                        <option>Condiciones originadas en el período perinatal</option>
-                        <option>Códigos para usos especiales</option>
-                        <option>Embarazo, parto y puerperio</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -368,6 +331,55 @@
                         <option>Embarazo, parto y puerperio</option>
                     </select>
                 </div>
+
+
+
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="inputTriaje" class="form-label">Triaje</label>
+                    <select id="inputTriaje" class="form-select">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>NA</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="inputUbicacionTriaje" class="form-label">Ubicación triaje</label>
+                    <select id="inputUbicacionTriaje" class="form-select">
+                        <option>Consultorio 1</option>
+                        <option>Consultorio 2</option>
+                        <option>Consultorio 3</option>
+                        <option>Consultorio 4</option>
+                        <option>Consultorio Pediatria</option>
+                        <option>Trauma</option>
+                        <option>Urgencia XPRESS</option>
+                        <option>Udea</option>
+                        <option>Consultorio Oncologia</option>
+                        <option>SAI Adulto</option>
+                        <option>Consultorio 1 Magisterio</option>
+                        <option>Tamizaje Covid</option>                        
+                        <option>Xpress</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="inputMinutosCamaraF3" class="form-label">Minutos (Cámara - F3)</label>
+                    <input type="number" id="inputMinutosCamaraF3" class="form-control" step="0.01">
+                </div>
+
+                <div class="form-group">
+                    <label for="inputHoraDiligenciamientoF3" class="form-label">Hora diligenciamiento F3</label>
+                    <input type="number" id="inputHoraDiligenciamientoF3" class="form-control" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label for="inputMinutos" class="form-label">Minutos</label>
+                    <input type="number" id="inputMinutos" class="form-control" step="0.01">
+                </div>
+
+
             </div>
                 <div class="form-group">
                     <button type="button" class="btn btn-primary btn-block" style="width: 200px; margin-left: 18px;" onclick="sendPrediction()">Enviar</button>

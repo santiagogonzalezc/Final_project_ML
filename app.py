@@ -206,8 +206,15 @@ def predict():
         except ValueError:
             return jsonify({'error': f'El valor en la posición {i} no es numérico: {output[i]}'})
     
+    reshaped_input = np.array(output)
+    print(reshaped_input)
+    print(reshaped_input.shape)  
 
-    return jsonify({'prediction': output})
+    prediccion = modelo.predict(reshaped_input.reshape(1, -1))
+    Pred = prediccion[0]
+    Pred = int(Pred)
+
+    return jsonify({'prediction': Pred})
 
 @app.route('/')
 def serve_prediction_page():
