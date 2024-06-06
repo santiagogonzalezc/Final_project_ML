@@ -449,16 +449,18 @@
             });
 
             const result = await response.json();
-            // Muestra la predicción en una ventana emergente personalizada
+
             Swal.fire({
-                    title: 'Predicción',
-                    text: result.prediction === 0 ? 'El paciente queda hospitalizado' : 'El paciente no queda hospitalizado',
-                    icon: 'info',
-                    confirmButtonColor: '#00BAB3', // Cambia el color del botón de confirmación
-                    confirmButtonText: 'Aceptar',
-                    customClass: {
-                        confirmButton: 'mi-boton' // Nombre de la clase personalizada para el botón de confirmación
-                    }
+                title: 'Predicción',
+                text: result.prediction === 0 ? 'El paciente queda hospitalizado' : 'El paciente no queda hospitalizado',
+                html: `Probabilidad: ${(result.probability * 100).toFixed(2)}%<br>
+                    ${result.prediction === 0 ? 'El paciente queda hospitalizado' : 'El paciente no queda hospitalizado'}`,
+                icon: 'info',
+                confirmButtonColor: '#00BAB3',
+                confirmButtonText: 'Aceptar',
+                customClass: {
+                    confirmButton: 'mi-boton'
+                }
                     
                 });
         

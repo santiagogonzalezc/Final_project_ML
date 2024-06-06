@@ -210,11 +210,19 @@ def predict():
     print(reshaped_input)
     print(reshaped_input.shape)  
 
-    prediccion = modelo.predict(reshaped_input.reshape(1, -1))
+    prediccion = modelo.predict(reshaped_input.reshape(1, -1))    
     Pred = prediccion[0]
     Pred = int(Pred)
+    # Realiza la predicción de probabilidades
+    probabilidades = modelo.predict_proba(reshaped_input.reshape(1, -1))
 
-    return jsonify({'prediction': Pred})
+    # Obtén la probabilidad de la clase predicha
+    probabilidad_predicha = float(probabilidades[0][Pred])  # Convertir a float
+
+    # Imprime la probabilidad
+    print("Probabilidad de la clase predicha:", probabilidad_predicha)
+
+    return jsonify({'prediction': Pred, 'probability': probabilidad_predicha})
 
 @app.route('/')
 def serve_prediction_page():
