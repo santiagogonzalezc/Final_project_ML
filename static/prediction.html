@@ -68,29 +68,29 @@
                     <div class="form-group">
                         <label for="inputERP" class="form-label">ERP o EPS</label>
                         <select id="inputERP" class="form-select">
-                            <option>48</option>
-                            <option>65</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>47</option>
-                            <option>34</option>
-                            <option>68</option>
-                            <option>1</option>
-                            <option>53</option>
-                            <option>18</option>
-                            <option>23</option>
-                            <option>2</option>
-                            <option>11</option>
-                            <option>63</option>
-                            <option>39</option>
-                            <option>56</option>
-                            <option>15</option>
-                            <option>60</option>
-                            <option>46</option>
-                            <option>62</option>
-                            <option>57</option>
-                            <option>8</option>
-                            <option>61</option>
+                            <option value="48">48</option>
+                            <option value="65">65</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="47">47</option>
+                            <option value="34">34</option>
+                            <option value="68">68</option>
+                            <option value="1">1</option>
+                            <option value="53">53</option>
+                            <option value="18">18</option>
+                            <option value="23">23</option>
+                            <option value="2">2</option>
+                            <option value="11">11</option>
+                            <option value="63">63</option>
+                            <option value="39">39</option>
+                            <option value="56">56</option>
+                            <option value="15">15</option>
+                            <option value="60">60</option>
+                            <option value="46">46</option>
+                            <option value="62">62</option>
+                            <option value="57">57</option>
+                            <option value="8">8</option>
+                            <option value="61">61</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -241,7 +241,7 @@
         async function sendPrediction() {
             const descripcion = document.getElementById('inputDescripcion').value;
             const mes = document.getElementById('inputMes').value;
-            const erp = document.getElementById('inputERP').value;
+            const erp = parseInt(document.getElementById('inputERP').value);
             const modalidad = document.getElementById('inputModalidad').value;
             const regimen = document.getElementById('inputRegimen').value;
             const diagnostico = document.getElementById('inputDiagnostico').value;
@@ -251,10 +251,10 @@
             const grupoPoblacional = document.getElementById('inputGrupoPoblacional').value;
             const pertenenciaEtnica = document.getElementById('inputPertenenciaEtnica').value;
             const altoCosto = document.getElementById('inputAltoCosto').value;
-            const minutosCamaraF3 = document.getElementById('inputMinutosCamaraF3').value;
-            const edad = document.getElementById('inputEdad').value;
-            const horaDiligenciamientoF3 = document.getElementById('inputHoraDiligenciamientoF3').value;
-            const minutos = document.getElementById('inputMinutos').value;
+            const minutosCamaraF3 = parseFloat(document.getElementById('inputMinutosCamaraF3').value);
+            const edad = parseFloat(document.getElementById('inputEdad').value);
+            const horaDiligenciamientoF3 = parseFloat(document.getElementById('inputHoraDiligenciamientoF3').value);
+            const minutos = parseFloat(document.getElementById('inputMinutos').value);
             const ubicacionTriaje = document.getElementById('inputUbicacionTriaje').value;
             const modalidadAtencion = document.getElementById('inputModalidadAtencion').value;
 
@@ -264,7 +264,7 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    input: [descripcion, mes, erp, modalidad, regimen, diagnostico, sexo, triaje, causa, grupoPoblacional, pertenenciaEtnica, altoCosto, minutosCamaraF3, edad, horaDiligenciamientoF3, minutos, ubicacionTriaje, modalidadAtencion]
+                    input: [descripcion, mes, erp, modalidad, regimen, minutosCamaraF3, diagnostico, edad, sexo, triaje, causa, modalidadAtencion, ubicacionTriaje, horaDiligenciamientoF3, minutos, grupoPoblacional, pertenenciaEtnica, altoCosto]
                 })
             });
 
