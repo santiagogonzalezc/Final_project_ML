@@ -175,7 +175,21 @@ def predict():
         except ValueError:
             return jsonify({'error': f'El valor en la posición {i} no es numérico: {output[i]}'})
     
-    return jsonify({'prediction': output})
+    
+    reshaped_input = np.array(output)
+    print(reshaped_input)
+    # Extender el vector con ceros para que tenga una longitud de 2429
+    reshaped_input = np.pad(reshaped_input, (0, 2429 - len(reshaped_input)), 'constant')
+    # Establecer el valor en posicion 1000 como 1
+    reshaped_input[720] = 2
+    print(reshaped_input.shape)  
+
+
+    prediccion = modelo.predict(reshaped_input.reshape(1, -1))
+    Pred = prediccion[0]
+    Pred = int(Pred)
+
+    return jsonify({'prediction': Pred})
 
 @app.route('/')
 def serve_prediction_page():
