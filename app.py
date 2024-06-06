@@ -99,10 +99,65 @@ def predict():
         causa_externa_codificada[8] = 1
     del output[8]
 
+    # Codificar la modalidad de atención
+    modalidad_atencion_codificada = 1 if output[8] == "Urgencias" else 0
+
+    # Codificar la ubicación triaje (one-hot encoding)
+    ubicacion_triaje_codificada = [0] * 13  # Inicializa con 13 ceros
+    ubicacion_triaje = output[9]
+    ubicaciones = [
+        "Consultorio 1", "Consultorio 1 Magisterio", "Consultorio 2",
+        "Consultorio 3", "Consultorio 4", "Consultorio Oncologia",
+        "Consultorio Pediatria", "SAI Adulto", "Tamizaje Covid",
+        "Trauma", "Udea", "Urgencia XPRESS", "Xpress"
+    ]
+    if ubicacion_triaje in ubicaciones:
+        ubicacion_triaje_codificada[ubicaciones.index(ubicacion_triaje)] = 1
+    del output[9]
+
+    # Codificar Urgencia Xpress F3
+    urgencia_xpress_f3_codificada = 0 if output[11] == "Si" else 1
+
+    # Codificar el grupo poblacional (one-hot encoding)
+    grupo_poblacional_codificada = [0, 0, 0]  # Inicializa con 3 ceros
+    grupo_poblacional = output[12]
+    grupos = ["Habitante de calle", "Población general", "Víctima de conflicto armado"]
+    if grupo_poblacional in grupos:
+        grupo_poblacional_codificada[grupos.index(grupo_poblacional)] = 1
+    del output[12]
+
+    # Codificar la pertenencia étnica (one-hot encoding)
+    pertenencia_etnica_codificada = [0, 0, 0, 0, 0]  # Inicializa con 5 ceros
+    pertenencia_etnica = output[12]
+    pertenencias = [
+        "Indígena", "Negro (a). Mulato (a). Afrocolombiano (a) o Afro Descendiente", 
+        "Otras Etnias", "Raizal (Archipiélago de San Andrés y Providencia)", 
+        "Rrom (Gitano)"
+    ]
+    if pertenencia_etnica in pertenencias:
+        pertenencia_etnica_codificada[pertenencias.index(pertenencia_etnica)] = 1
+    del output[12]
+
+    # Codificar alto costo (one-hot encoding)
+    alto_costo_codificada = [0] * 11  # Inicializa con 11 ceros
+    alto_costo = output[12]
+    altos_costos = [
+        "Artritis Reumatoide", "Cáncer", "Diabetes", "Gestantes", "Hemofilia",
+        "Hepatitis C", "Hipertensión", "Renal", "Tuberculosis", "VIH", "No Alto Costo"
+    ]
+    if alto_costo in altos_costos:
+        alto_costo_codificada[altos_costos.index(alto_costo)] = 1
+    del output[12]
+
     # Extiende la lista de salida con las codificaciones de modalidad de contrato
     output.extend(modalidad_contrato_codificada)
     output.extend(regimen_afiliacion_codificada)
     output.extend(causa_externa_codificada)
+    output.extend(ubicacion_triaje_codificada)
+    output.extend(grupo_poblacional_codificada)
+    output.extend(pertenencia_etnica_codificada)
+    output.extend(alto_costo_codificada)
+
 
     # Ahora reemplazamos la variable original por la codificada
     output[0] = descripcion_codificada
@@ -110,7 +165,16 @@ def predict():
     output[4] = tipo_diagnostico_codificado
     output[6] = sexo_codificado
     output[7] = triaje_codificado
+    output[8] = modalidad_atencion_codificada
+    output[11] = urgencia_xpress_f3_codificada
 
+    # Verificar que todos los valores en 'output' sean numéricos (enteros o flotantes)
+    for i in range(len(output)):
+        try:
+            output[i] = float(output[i])
+        except ValueError:
+            return jsonify({'error': f'El valor en la posición {i} no es numérico: {output[i]}'})
+    
     return jsonify({'prediction': output})
 
 @app.route('/')
