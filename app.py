@@ -21,6 +21,31 @@ meses_codificados = {
     "Diciembre": 1.634
 }
 
+diagnosticos_posibles = [
+    "Enfermedades del sistema circulatorio",
+    "Causas externas de morbilidad y mortalidad",
+    "Enfermedades del sistema nervioso",
+    "Síntomas, signos y hallazgos anormales clínicos y de laboratorio, no clasificados en otra parte",
+    "Enfermedades del sistema digestivo",
+    "Lesiones, envenenamiento y algunas otras consecuencias de causas externas",
+    "Enfermedades del sistema respiratorio",
+    "Factores que influyen en el estado de salud y contacto con los servicios de salud",
+    "Enfermedades del sistema genitourinario",
+    "Enfermedades del oído y de la apófisis mastoides",
+    "Ciertas enfermedades infecciosas y parasitarias",
+    "Neoplasias",
+    "Enfermedades endocrinas, nutricionales y metabólicas",
+    "Enfermedades de la piel y del tejido subcutáneo",
+    "Enfermedades del sistema osteomuscular y del tejido conjuntivo",
+    "Trastornos mentales y del comportamiento",
+    "Enfermedades del ojo y anexos",
+    "Enfermedades de la sangre y de los órganos hematopoyéticos",
+    "Malformaciones congénitas, deformidades y anomalías cromosómicas",
+    "Condiciones originadas en el período perinatal",
+    "Códigos para usos especiales",
+    "Embarazo, parto y puerperio"
+]
+
 # Carga el modelo
 with open('models/XGB_RSearchCV.pkl', 'rb') as f:
     modelo = pickle.load(f)
@@ -149,6 +174,11 @@ def predict():
         alto_costo_codificada[altos_costos.index(alto_costo)] = 1
     del output[12]
 
+    # Codificar los diagnósticos (principal y relacionados)
+    diagnosticos = [output[12], output[13], output[14], output[15]]
+    diagnosticos_codificados = [1 if diag in diagnosticos else 0 for diag in diagnosticos_posibles]
+    del output[12:16]  # Eliminar las variables originales de los diagnósticos
+
     # Extiende la lista de salida con las codificaciones de modalidad de contrato
     output.extend(modalidad_contrato_codificada)
     output.extend(regimen_afiliacion_codificada)
@@ -157,6 +187,7 @@ def predict():
     output.extend(grupo_poblacional_codificada)
     output.extend(pertenencia_etnica_codificada)
     output.extend(alto_costo_codificada)
+    output.extend(diagnosticos_codificados)
 
 
     # Ahora reemplazamos la variable original por la codificada
@@ -175,21 +206,8 @@ def predict():
         except ValueError:
             return jsonify({'error': f'El valor en la posición {i} no es numérico: {output[i]}'})
     
-    
-    reshaped_input = np.array(output)
-    print(reshaped_input)
-    # Extender el vector con ceros para que tenga una longitud de 2429
-    reshaped_input = np.pad(reshaped_input, (0, 2429 - len(reshaped_input)), 'constant')
-    # Establecer el valor en posicion 1000 como 1
-    reshaped_input[1100] = 2
-    print(reshaped_input.shape)  
 
-
-    prediccion = modelo.predict(reshaped_input.reshape(1, -1))
-    Pred = prediccion[0]
-    Pred = int(Pred)
-
-    return jsonify({'prediction': Pred})
+    return jsonify({'prediction': output})
 
 @app.route('/')
 def serve_prediction_page():
