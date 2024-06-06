@@ -13,7 +13,7 @@ with open('models/XGB_RSearchCV.pkl', 'rb') as f:
 @app.route('/predict', methods=['POST'])
 def predict():
     data = request.get_json(force=True)
-    output = 2  # Esta es una salida fija para fines de prueba
+    output = data['input']  
     return jsonify({'prediction': output})
 
 @app.route('/')
